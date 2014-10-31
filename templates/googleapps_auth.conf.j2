@@ -1,0 +1,16 @@
+PerlLoadModule Apache::Authn::GoogleApps
+<Location /protected>
+   AuthType Basic
+   AuthName GoogleAccount
+   Require valid-user
+
+   # Your GoogleApps Domain
+   GoogleAppsDomain {{ google_apps_domain }}
+   # Append domain to username or not, `Always` always append domain. `None` append no domain.
+   # `Auto` append domain if username includes no `@` char.
+   GoogleAppsDomainAppend {{ google_apps_domain_append  }}
+   # How long cache credentials(sec).
+   GoogleAppsCacheCredsMax {{ google_apps_cache_creds_max }}
+
+   PerlAuthenHandler Apache::Authn::GoogleApps::handler
+</Location>

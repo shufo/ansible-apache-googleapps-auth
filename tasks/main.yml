@@ -1,0 +1,20 @@
+---
+- name: Ensure dependencies are installed
+  yum: name={{ item }} state=installed
+  with_items:
+    - mod_perl
+    - perl-libwww-perl
+    - perl-IO-Socket-SSL
+    - httpd
+
+- name: Ensure Apache Module directory is present
+  file: path=/usr/lib64/perl5/Apache/Authn/ state=directory
+
+- name: Ensure google apps perl module is present
+  template: src=templates/GoogleApps.pm.j2 dest=/usr/lib64/perl5/Apache/Authn/GoogleApps.pm
+
+- name: Ensure apache conf is present
+  template: src=templates/googleapps_auth.conf.j2 dest=/etc/httpd/conf.d/googleapps_auth.conf
+
+- name: Ensure apache is started
+  service: name=httpd state=started
