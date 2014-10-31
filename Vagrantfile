@@ -15,7 +15,6 @@ Vagrant.configure("2") do |config|
         ansible.sudo = true
         ansible.verbose = "vv"
         ansible.playbook = "site.yml"
-        #ansible.inventory_path = "ansible_hosts"
         ansible.limit = "all"
     end
   end
